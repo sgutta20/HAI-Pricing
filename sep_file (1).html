@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+  box-sizing: border-box;
+}
+.column {
+  float: left;
+  width: 50%;
+  padding: 20px;
+  height: 600px;
+  border:1px solid black;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+</head>
+
+<h1>Pricing 2 Products</h1>
+<p>General information about the experiment and overview of details can go here.</p>
+
+<body>
+
+<div class="row">
+
+<!-- Left Column with Sliders -->
+<div class="column" style="background-color:#DCDCDC;">
+<meta charset="utf-8">
+
+<h2>Set Current Prices:</h2>
+<p>Current Period: <span id="q"></span> </p>
+
+<div class="slidecontainer">
+  <p>Product 1:</p>
+  <input type="range" min="1" max="1000" value="500" class="slider" id="myRange">
+  <p>Price: $<span id="p1"></span></p>
+</div>
+
+<div class="slidecontainer">
+  <p>Product 2:</p>
+  <input type="range" min="1" max="1000" value="500" class="slider2" id="myRange2">
+  <p>Price: $<span id="p2"></span></p>
+</div>
+
+<p id="p1"></p>
+<p id="p2"></p>
+<p id="q"></p>
+<p id="x"></p>
+<p id="ps"></p>
+
+<button type="button"
+onclick="set_values();reset();">
+Submit</button>
+
+</div> <!-- Left Column End-->
+
+<!-- Right Column with Graph -->
+<div class="column" style="background-color:#DCDCDC;">
+<h2>Trends:</h2>
+
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+
+<div id="myDiv" style="width:100%">
+
+</div> <!-- Right Column End-->
+
+
+</div> <!-- Row End-->
+
+<h2> Tips and Tricks: Maybe you should do this instead of this, or set Product 1 to this value. </h2>
+
+<!-- vvv JAVASCRIPT Scripts Set Below vvv -->
+<script>
+const price_set = [];
+var q = 1;
+var q_output = document.getElementById("q");
+q_output.innerHTML = q;
+var ip = 0;
+const st_set = [];
+</script>
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("p1");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>
+
+<script>
+var slider2 = document.getElementById("myRange2");
+var output2 = document.getElementById("p2");
+output2.innerHTML = slider2.value;
+
+slider2.oninput = function() {
+  output2.innerHTML = this.value;
+}
+</script>
+
+<script>
+  function set_values() {
+    q += 1;
+    q_output.innerHTML = q;
+    price_set.push(slider.value);
+    price_set.push(slider2.value);
+    document.getElementById("x").innerHTML = "Current Price Set:";
+    var reso = document.getElementById("ps");
+    reso.innerHTML = price_set;
+    return;
+  }
+ </script>
+
+<script>
+function reset() {
+	slider.value = 500;
+    slider2.value = 500;
+    output.innerHTML = slider.value;
+    output2.innerHTML = slider2.value;
+    return;
+}
+</script>
+
+<script>
+var trace1 = {
+    x: [1, 2, 3, 4, 5],
+    y: [1, 6, 3, 6, 1],
+    mode: 'markers',
+    type: 'scatter',
+    name: 'Team A',
+    text: ['A-1', 'A-2', 'A-3', 'A-4', 'A-5'],
+    marker: { size: 12 }
+  };
+  
+  var trace2 = {
+    x: [1.5, 2.5, 3.5, 4.5, 5.5],
+    y: [4, 1, 7, 1, 4],
+    mode: 'markers',
+    type: 'scatter',
+    name: 'Team B',
+    text: ['B-a', 'B-b', 'B-c', 'B-d', 'B-e'],
+    marker: { size: 12 }
+  };
+  
+  var data = [ trace1, trace2 ];
+  
+  var layout = {
+    xaxis: {
+      range: [ 0.75, 5.25 ]
+    },
+    yaxis: {
+      range: [0, 8]
+    },
+    title:'Data Labels Hover'
+  };
+  
+  Plotly.newPlot('myDiv', data, layout);
+</script>
+
+<!-- ^^^ JAVASCRIPT Scripts Sets Above ^^^ -->
+
+</body>
+
+</html>
