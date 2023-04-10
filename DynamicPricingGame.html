@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link href='https://fonts.googleapis.com/css?family=Work Sans' rel='stylesheet'>
+<style>
+html *
+{
+   font-family: 'Work Sans' !important;
+   height:100%;
+}
+
+body {
+    margin: 0px;
+    background-color: rgba(237, 237, 237, 0.96);
+}
+
+/* Style top bar */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+  margin: 0px;
+}
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 35px;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: 'Work Sans';
+}
+.topnav b {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 35px;
+  text-decoration: none;
+  font-size: 18px;
+  font-family: 'Work Sans';
+}
+/* Style top bar */
+
+.sec1 {
+  align-items: center;
+}
+.sec2 {
+  align-items: center;
+  padding: 20px;
+  margin: auto;
+  font-size: large;
+  font-weight: bold;
+}
+
+/* Flex container styles*/
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 5px;
+  height:100%;
+  flex-wrap: wrap;
+  
+}
+.flex-container > div {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 5px;
+  flex: 1 1 0px;
+  align-items: center;
+  justify-content: center;
+}
+.flex-container-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px;
+}
+.flex-container-col > div {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 0px;
+  flex: 1 1 0px;
+  align-items: center;
+  justify-content: center;
+}
+.flex-container-pic {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0px;
+}
+.flex-container-pic > div {
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 0px;
+  flex: 1 1 0px;
+  align-items: center;
+  justify-content: center;
+}
+.flex-container2 {
+  display: flex;
+  align-items: stretch;
+  background-color: #f1f1f1;
+}
+.hints {
+  background-color: DodgerBlue;
+  color: white;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 20px;
+}
+.hintbox {
+  background-color: rgb(252, 252, 252);
+  color: rgb(0, 0, 0);
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 20px;
+  border-width: 5px;
+  border-color: #000000;
+}
+/* Flex container styles*/
+
+/* Slider styles*/
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  width: 100%;
+  height: 25px;
+  background: #232ed0;
+  outline: none;
+  opacity: 0.7;
+}
+.slider:hover {
+  opacity: 1;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button {
+  background-color: #2966ff;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.hintbutton {
+  background-color: #2966ff;
+  border: none;
+  color: white;
+  margin-top: 50px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+/* Slider styles*/
+
+.column {
+  float: left;
+  width: 50%;
+  background-color: rgba(237, 237, 237, 0.96);
+}
+.row1:after {
+  content: "";
+  display: table;
+  clear: both;
+  background-color: #f1f1f1;
+}
+
+.centerphoto {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #FFE592;
+  color: black;
+  font-size: 15px;
+}
+
+.closebtn {
+  color: black;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+
+</head>
+
+
+<!-- vvv HTML Below vvv -->
+<body>
+  <div class="topnav">
+    <a href="#home">Dynamic Pricing Strategy Game Round: <span id="round"></span>, Period: <span id="q"></span></a>
+    <b href="#home">Session ID: 0000000000</b>
+  </div>
+
+  <div class="sec1">
+    <div class="flex-container">
+      <div style="flex: 0 0 10px"></div>
+      <div>
+        <div class="chart-container" style="position: relative;">
+          <canvas id="myChart1"></canvas>
+        </div>
+      </div>
+      <div>
+        <div class="chart-container" style="position: relative;">
+          <canvas id="myChart3"></canvas>
+        </div>
+      </div>
+      <div>
+        <div class="chart-container" style="position: relative;">
+          <canvas id="myChart2"></canvas>
+        </div>
+      </div>
+      <div style="flex: 0 0 10px"></div>
+    </div>
+
+  <div class="flex-container">
+    <div>
+      <div class="flex-container-col">
+          <div class="slidecontainer">
+              <input type="range" min="1" max="1000" value="1" class="slider" id="myRange">
+              <p align="center">Product 1 Price: $<span id="p1"></span></p>
+          </div>
+          <div class="slidecontainer">
+              <input type="range" min="1" max="1000" value="1" class="slider" id="myRange2">
+              <p align="center">Product 2 Price: $<span id="p2"></span></p>
+          </div>
+      </div>
+      <div align="center">
+        <button class="button" type="button" id="myButton1"
+          onclick="set_prices_button()">
+          Set Prices 
+        </button>
+      </div>
+    </div>
+    <div div class="flex-container">
+        <button class="hintbutton" type="button" id="myButton2" 
+          onclick="displayhint()">
+          Hint
+        </button>
+    </div>
+    <div class="flex-container">
+        <div class="flex-container-col">
+            <div>
+                <img src="C:/Users/rgutt/OneDrive/Desktop/URAP/signals/orangeequal.png" id="sigpic1" alt="HTML5 Icon" style="width:60px;height:60px;" class="centerphoto">
+            </div>
+            <div>
+                <p align="center">The demand for Product 1 will be <span id="d1sig"></span></p>
+            </div>
+        </div>
+        <div class="flex-container-col">
+            <div>
+                <img src="C:/Users/rgutt/OneDrive/Desktop/URAP/signals/orangeequal.png" id="sigpic2" alt="HTML5 Icon" style="width:60px;height:60px;" class="centerphoto">
+            </div>
+            <div>
+                <p align="center">The demand for Product 2 will be <span id="d2sig"></span></p>
+            </div>
+        </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="sec2">
+    <div class="flex-container">
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+<p id="p1"></p>
+<p id="p2"></p>
+<p id="q"></p>
+<p id="round"></p>
+<p id="x"></p>
+<p id="ps"></p>
+<p id="d1sig"></p>
+<p id="d2sig"></p>
+
+<!-- ^^^ HTML Above ^^^ -->
+
+<!-- vvv JAVASCRIPT Scripts Set vvv -->
+
+
+
+<!-- variables -->
+<script>
+  var price_set = [];
+  var q = 1;
+  var q_output = document.getElementById("q");
+  q_output.innerHTML = q;
+  var year = 1;
+  var q_count = 0;
+  var i1 = 0;
+  var i2 = 1;
+  var total_dataset = []; //array of arrays, rows are ps1, ps2, ds1, ds2, profit
+  var round = 1;
+  var round_output = document.getElementById("round");
+  round_output.innerHTML = round;
+  var tprofit = 0;
+  var profit_set = [];
+
+  var p1 = 500;
+  var p2 = 500;
+  var d1 = 1050;
+  var d2 = 1550;
+  var demand_set = [d1, d2];
+  var alpha1 = 0;
+  var alpha2 = 0;
+  var d1sig = "the same.";
+  var d2sig = "the same.";
+  var sig1 = document.getElementById("d1sig");
+  sig1.innerHTML = d1sig;
+  var sig2  = document.getElementById("d2sig");
+  sig2.innerHTML = d2sig;
+  var up = "C:Users/rgutt/OneDrive/Desktop/URAP/signals/greenup.png";
+  var down = "C:Users/rgutt/OneDrive/Desktop/URAP/signals/reddown.png";
+  var equal = "C:/Users/rgutt/OneDrive/Desktop/URAP/signals/orangeequal.png";
+const price_data = {
+    labels:[],
+    datasets: [
+        {
+            label: 'P1',
+            data: [],
+            borderColor: '#0000FF',
+            borderWidth: 1
+        },
+        {
+            label: 'P2',
+            data: [],
+            borderColor: '#A020F0',
+            borderWidth: 1
+        }
+    ]
+}
+const demand_data = {
+    labels:[],
+    datasets: [
+        {
+            label: 'D1',
+            data: [],
+            borderColor: '#ADD8E6',
+            borderWidth: 1
+        },
+        {
+            label: 'D2',
+            data: [],
+            borderColor: '#CBC3E3',
+            borderWidth: 1
+        }
+    ]
+}
+const profit_data = {
+    labels:[],
+    datasets: [
+        {
+            label: 'Profit',
+            data: [],
+            borderColor: '#ADD8E6',
+            borderWidth: 1
+        }
+    ]
+}
+</script>
+<script>
+    const alpha_bucket1 = [0, 1, -1, 0 , 1, -1, 0, 0, -1, 0]
+    const alpha_bucket2 = [1, 1 , -1, 0, 1, 0, 0, 0, -1, -1]
+    const alpha_bucket3 = [-1, 1, -1, 0, 1, -1, 0, -1, 1, 1]
+    const alpha_bucket4 = [1, 1, 0, -1, 0, -1, 1, 0, -1, 1]
+</script>
+<!-- variables -->
+
+
+
+<!-- sliders -->
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("p1");
+slider.value = 500;
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>
+
+<script>
+var slider2 = document.getElementById("myRange2");
+var output2 = document.getElementById("p2");
+slider2.value = 500;
+output2.innerHTML = slider2.value;
+
+slider2.oninput = function() {
+  output2.innerHTML = this.value;
+}
+</script>
+<!-- sliders -->
+
+
+
+<!-- functions -->
+<script>
+  function set_values() {
+    q += 1;
+    q_output.innerHTML = q;
+    price_set.push(slider.value);
+    price_set.push(slider2.value);
+    var reso = document.getElementById("ps");
+    q_count += 1;
+    d1n = d1 * (Math.random() * (1.2 - 0.8 + 0.8));
+    d2n = d2 * (Math.random() * (1.3 - 0.9) + 0.9);
+    // svals = nested_logit(price_set[i1], price_set[i2], 0, 0, -1, -1, 0.5);
+    // d1n = svals[i1]
+    // d2n = svals[i2]
+    demand_set.push(d1n);
+    demand_set.push(d2n);
+    if (d1n > d1) {
+        d1sig = "higher.";
+    }
+    if (d1n < d1) {
+        d1sig = "lower.";
+    }
+    if (d1n == d1) {
+        d1sig = 'the same.';
+    }
+    if (d2n > d2) {
+        d2sig = "higher.";
+    }
+    if (d2n < d2) {
+        d2sig = "lower.";
+    }
+    if (d2n == d2) {
+        d2sig = "the same.";
+    }
+    d1 = d1n;
+    d2 = d2n;
+    tprofit = profit(price_set[i1], price_set[i2], d1, d2);
+    profit_set.push(tprofit);
+    var sig1 = document.getElementById("d1sig");
+    sig1.innerHTML = d1sig;
+    var sig2  = document.getElementById("d2sig");
+    sig2.innerHTML = d2sig;
+    signalpics();
+    if (price_set.length > 20) {
+        removeData(myChart1);
+        removeData(myChart2); 
+        removeData(myChart3);
+    }
+    resethint();
+    return;
+  }
+  function set_i() {
+    i1 += 2;
+    i2 += 2;
+  }
+  function reset() {
+      slider.value = 500;
+      slider2.value = 500;
+      output.innerHTML = slider.value;
+      output2.innerHTML = slider2.value;
+      return;
+  }
+  function checkroundresetog() {
+    if (q == 11) {
+      document.getElementById("myButton1").childNodes[0].nodeValue="Next Round";
+      q += 1;
+    }
+    if (q == 12) {
+      round += 1;
+      q = 1;
+      q_count = 0
+      q_output.innerHTML = q;
+      round_output.innerHTML = round;
+      document.getElementById("myButton1").childNodes[0].nodeValue="Set Prices";
+    }
+  }
+  function checkroundreset() {
+    if (q == 12) {
+      if (round == 4) {
+        gameend();
+        return;
+      }
+      round += 1;
+      q = 1;
+      q_count = 0
+      q_output.innerHTML = q;
+      round_output.innerHTML = round;
+      document.getElementById("myButton1").childNodes[0].nodeValue="Set Prices";
+    }
+    if (q == 11) {
+      document.getElementById("myButton1").childNodes[0].nodeValue="Next Round";
+      q_output.innerHTML = 10;
+      q += 1;
+      if (round == 4) {
+        document.getElementById("myButton1").childNodes[0].nodeValue="Finish and Download Results";
+      }
+    }
+  }
+  function export_csv() {
+    const data = total_dataset;
+    let csvContent = "data:text/csv;charset=utf-8,";
+    data.forEach(function(rowArray) {
+        let row = rowArray.join(",");
+        csvContent += row + "\r\n";
+    });
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+  }
+  function signalpics() {
+    if (d1sig == "higher.") {
+        document.getElementById("sigpic1").src = up;
+    }
+    if (d1sig == "lower.") {
+        document.getElementById("sigpic1").src = down;
+    }
+    if (d1sig == 'the same.') {
+        document.getElementById("sigpic1").src = equal;
+    }
+    if (d2sig == "higher.") {
+        document.getElementById("sigpic2").src = up;
+    }
+    if (d2sig == "lower.") {
+        document.getElementById("sigpic2").src = down;
+    }
+    if (d2sig == "the same.") {
+        document.getElementById("sigpic2").src = equal;
+    }
+  }
+  function starting_nested_logit(p1, p2, alpha1, alpha2, beta1, beta2, sigma) {
+    denom = 1;
+    s1 = (Math.exp((alpha1 + (beta1 * p1))/sigma) * ((Math.exp((alpha1 + (beta1 * p1))/sigma)) + Math.exp((alpha2 + (beta2 * p2))/sigma))**(sigma - 1)) / denom;
+    s2 = (Math.exp((alpha2 + (beta2 * p2))/sigma) * ((Math.exp((alpha1 + (beta1 * p1))/sigma)) + Math.exp((alpha2 + (beta2 * p2))/sigma))**(sigma - 1)) / denom;
+    result = [s1, s2];
+    return result;
+  }
+  function nested_logit(p1, p2, alpha1, alpha2, beta1, beta2, sigma) {
+    denom = 1 + (Math.exp((alpha1 + (beta1 * p1))/sigma) + Math.exp((alpha2 + (beta2 * p2)) / sigma))**sigma;
+    s1 = (Math.exp((alpha1 + (beta1 * p1))/sigma) * ((Math.exp((alpha1 + (beta1 * p1))/sigma)) + Math.exp((alpha2 + (beta2 * p2))/sigma))**(sigma - 1)) / denom;
+    s2 = (Math.exp((alpha2 + (beta2 * p2))/sigma) * ((Math.exp((alpha1 + (beta1 * p1))/sigma)) + Math.exp((alpha2 + (beta2 * p2))/sigma))**(sigma - 1)) / denom;
+    result = [s1, s2];
+    return result;
+  }
+  function profit(p1, p2, d1, d2) {
+    total = (p1 * d1) + (p2 * d2);
+    return total;
+  }
+  function displayhint() {
+    hintval1 = generateHintVal();
+    hintval2 = generateHintVal();
+    document.getElementById("myButton2").childNodes[0].nodeValue=('Suggested AI P1 = ' + hintval1 + ', Suggested AI P2 = ' + hintval2);
+  }
+  function resethint() {
+    hintval1 = generateHintVal();
+    hintval2 = generateHintVal();
+    document.getElementById("myButton2").childNodes[0].nodeValue='Hint';
+  }
+  function set_prices_button() {
+    if (q < 11) {
+      set_values();
+      add2Data(myChart1, 'Y' + round + ' ' + 'Q' + q_count, price_set[i1], price_set[i2]);
+      add2Data(myChart2, 'Y' + round + ' ' + 'Q' + q_count, demand_set[i1], demand_set[i2]);
+      addData(myChart3, 'Y' + round + ' ' + 'Q' + q_count, tprofit)
+      set_i();
+    }
+    checkroundreset();
+    return;
+  }
+  function gameend() {
+    total_dataset.push(price_set);
+    total_dataset.push(demand_set);
+    total_dataset.push(profit_set);
+    export_csv();
+  }
+  function generateHintVal() {
+    var num = Math.floor(Math.random() * 1000)
+    return num = num - num%10
+  }
+</script>
+<!-- functions -->
+
+
+
+<!-- charts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx1 = document.getElementById('myChart1');
+var myChart1 = new Chart(ctx1, {
+  type: 'line',
+  data: price_data, 
+  options: {
+    plugins: {
+            title: {
+                display: true,
+                text: 'Prices'
+                }
+            },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+function addData(chart, label, data) {
+  chart.data.labels.push(label);
+  chart.data.datasets.forEach((dataset) => {
+      dataset.data.push(data);
+  });
+  chart.update();
+}
+function add2Data(chart, label, data1, data2) {
+  chart.data.labels.push(label);
+  chart.data.datasets[0].data.push(data1);
+  chart.data.datasets[1].data.push(data2);
+  chart.update();
+}
+function removeData(chart) {
+    chart.data.labels.shift();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.shift();
+    });
+    chart.update();
+}
+const ctx2 = document.getElementById('myChart2');
+var myChart2 = new Chart(ctx2, {
+  type: 'line',
+  data: demand_data,
+  options: {
+    plugins: {
+            title: {
+                display: true,
+                text: 'Demand'
+                }
+            },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+const ctx3 = document.getElementById('myChart3');
+var myChart3 = new Chart(ctx3, {
+  type: 'line',
+  data: profit_data,
+  options: {
+    plugins: {
+            title: {
+                display: true,
+                text: 'Profit'
+                }
+            },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+</script>
+<!-- charts -->
+
+
+
+<!-- ^^^ JAVASCRIPT Scripts Sets ^^^ -->
+
+</body>
