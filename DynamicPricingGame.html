@@ -242,11 +242,11 @@ body {
     <div>
       <div class="flex-container-col">
           <div class="slidecontainer">
-              <input type="range" min="1" max="1000" value="1" class="slider" id="myRange">
+              <input type="range" min="1" max="20" value="10" class="slider" id="myRange">
               <p align="center">Product 1 Price: $<span id="p1"></span></p>
           </div>
           <div class="slidecontainer">
-              <input type="range" min="1" max="1000" value="1" class="slider" id="myRange2">
+              <input type="range" min="1" max="20" value="10" class="slider" id="myRange2">
               <p align="center">Product 2 Price: $<span id="p2"></span></p>
           </div>
       </div>
@@ -399,7 +399,7 @@ const profit_data = {
 <script>
 var slider = document.getElementById("myRange");
 var output = document.getElementById("p1");
-slider.value = 500;
+slider.value = 10;
 output.innerHTML = slider.value;
 
 slider.oninput = function() {
@@ -410,7 +410,7 @@ slider.oninput = function() {
 <script>
 var slider2 = document.getElementById("myRange2");
 var output2 = document.getElementById("p2");
-slider2.value = 500;
+slider2.value = 10;
 output2.innerHTML = slider2.value;
 
 slider2.oninput = function() {
@@ -423,6 +423,9 @@ slider2.oninput = function() {
 
 <!-- functions -->
 <script>
+  const fs = require("fs")
+  const { parse } = require("csv-parse")
+  fs.createReadStream("./cond1_alphas.csv")
   function set_values() {
     q += 1;
     q_output.innerHTML = q;
@@ -477,8 +480,8 @@ slider2.oninput = function() {
     i2 += 2;
   }
   function reset() {
-      slider.value = 500;
-      slider2.value = 500;
+      slider.value = 10;
+      slider2.value = 10;
       output.innerHTML = slider.value;
       output2.innerHTML = slider2.value;
       return;
@@ -562,6 +565,11 @@ slider2.oninput = function() {
     s2 = (Math.exp((alpha2 + (beta2 * p2))/sigma) * ((Math.exp((alpha1 + (beta1 * p1))/sigma)) + Math.exp((alpha2 + (beta2 * p2))/sigma))**(sigma - 1)) / denom;
     result = [s1, s2];
     return result;
+  }
+  function demand_function_logit(p1, p2, alpha1, alpha2, beta1, beta2, sigma) {     
+    denom = 1 + Math.exp(alpha1 +(beta1 * p1)) + Math.exp(alpha2 + (beta2 * p2));     
+    s1 = Math.exp(alpha1 +(beta1p1)) / denom;     s2 = Math.exp(alpha2 +(beta2p2)) / denom;     
+    result = [s1, s2];     return result;   
   }
   function profit(p1, p2, d1, d2) {
     total = (p1 * d1) + (p2 * d2);
